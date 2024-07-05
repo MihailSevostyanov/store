@@ -11,6 +11,7 @@ pexpect==4.9.0
 pillow==10.4.0
 prompt_toolkit==3.0.47
 psycopg==3.2.1
+psycopg2-binary==2.9.9
 ptyprocess==0.7.0
 pure-eval==0.2.2
 Pygments==2.18.0
