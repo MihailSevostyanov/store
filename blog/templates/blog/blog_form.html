@@ -5,6 +5,15 @@
         <div class="row">
             <div class="col-6">
                 <div class="card">
+                    <div class="card-header">
+                        <h4>
+                            {% if object %}
+                            Редактирование статьи
+                        {% else %}
+                            Создание новой статьи
+                        {% endif %}
+                        </h4>
+                    </div>
                     <div class="card-body">
                         <form method='post'>
                             {% csrf_token %}
@@ -16,6 +25,7 @@
                                     Создать
                                 {% endif %}
                             </button>
+                            <a class="btn btn-danger" href="{% url 'blog:blog_list' %}" role="button">Отменить</a>
                          </form>
                     </div>
                 </div>
