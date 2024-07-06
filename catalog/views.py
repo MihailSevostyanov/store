@@ -44,6 +44,10 @@ class ProductUpdateView(UpdateView):
 class ProductListView(ListView):
     model = Product
 
+    # def get_context_data(self, **kwargs):
+    #     context_data = super().get_context_data(**kwargs)
+    #     context_data["version"] = "Список продуктов"
+
 
 class ProductDetailView(DetailView):
     model = Product
