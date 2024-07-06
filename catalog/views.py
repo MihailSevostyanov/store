@@ -1,7 +1,7 @@
 from django import forms
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, TemplateView, CreateView
+from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView
 
 from catalog.models import Product
 
@@ -13,21 +13,29 @@ class ProductForm(forms.ModelForm):
 
     def clean_name(self):
         cleaned_data = self.cleaned_data['name']
-        prohibited_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
+        prohibited_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
+                            'радар']
         for product in prohibited_words:
             if product in cleaned_data:
                 raise forms.ValidationError(f'Нельзя использовать слово: {product}')
-            return cleaned_data
+        return cleaned_data
 
     def clean_description(self):
         cleaned_data = self.cleaned_data['description']
-        prohibited_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'ра��ар']
+        prohibited_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
+                            'радар']
         for product in prohibited_words:
             if product in cleaned_data:
                 raise forms.ValidationError(f'Нельзя использовать слово: {product}')
-            return cleaned_data
+        return cleaned_data
+
 
 class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy("catalog:product_list")
+
+class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy("catalog:product_list")
