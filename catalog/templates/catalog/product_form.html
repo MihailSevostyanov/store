@@ -1,35 +1,48 @@
 <{% extends 'catalog/base.html' %}
 {% block content %}
-<div class="col-12">
-    <div class="row">
+<div class="container">
+    <form class="row" method="post" enctype="multipart/form-data">
         <div class="col-6">
-            <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h4>
+                        {% if object %}
+                        Редактирование товара
+                        {% else %}
+                        Создание товара
+                        {% endif %}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    {% if object %}
+                    Сохранить
+                    {% else %}
+                    Создать
+                    {% endif %}
+                </button>
+                <a class="btn btn-danger" href="{% url 'catalog:product_list' %}" role="button">Отменить</a>
+            </div>
+        </div>
+        <div class="col-6">
                 <div class="card-header">
                     <div class="card-title">
                         <h4>
-                            {% if object %}
-                            Редактирование товара
-                            {% else %}
-                            Создание товара
-                            {% endif %}
+                            Версия
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form method='post' enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {{ form.as_p }}
-                            <button type="submit" class="btn btn-primary">
-                                {% if object %}
-                                Сохранить
-                                {% else %}
-                                Создать
-                                {% endif %}
-                            </button>
-                            <a class="btn btn-danger" href="{% url 'catalog:product_list' %}" role="button">Отменить</a>
-                        </form>
+                        {{ formset.management_form }}
+                        {% for form in formset.forms %}
+                        {{ form.as_p }}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    {% endblock %}
+    </form>
+</div>
+{% endblock %}
