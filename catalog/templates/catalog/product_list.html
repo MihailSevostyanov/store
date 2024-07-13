@@ -7,6 +7,7 @@
             <a class="btn btn-outline-primary" href="{% url 'catalog:product_create'%}" role="button">Добавить товар</a>
         </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {% if user.is_authenticated %}
             {% for product in object_list %}
             <div class="col">
                 <div class="card shadow-sm">
@@ -31,6 +32,7 @@
                 </p>
             </div>
             {% endfor %}
+            {% endif %}
         </div>
     </div>
 </div>
