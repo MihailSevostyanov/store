@@ -1,7 +1,9 @@
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from pytils.translit import slugify
 
+from blog.forms import BlogForm
 from blog.models import Blog
 
 
@@ -32,6 +34,12 @@ class BlogUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('blog:blog_detail', args=[self.kwargs.get('pk')])
+
+    def get_form_class(self):
+        user = self.request.user
+        if user.has_perm("blog.can_manage_publications"):
+            return BlogForm
+        raise PermissionDenied
 
 
 class BlogListView(ListView):

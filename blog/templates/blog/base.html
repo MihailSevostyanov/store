@@ -183,7 +183,9 @@
                 <h1 class="fw-light">БЛОГ</h1>
                 <p class="lead text-body-secondary">Статьи про технику</p>
                 <p>
+                    {% if perms.blog.can_manage_publications %}
                     <a href="{% url 'blog:blog_create' %}" role="button" class="btn btn-primary">Добавить статью</a>
+                    {% endif %}
                 </p>
             </div>
         </div>
