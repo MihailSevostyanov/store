@@ -5,6 +5,7 @@
     <div class="container">
         <div class="col-12 mb-5">
             <a class="btn btn-outline-primary" href="{% url 'catalog:product_create'%}" role="button">Добавить товар</a>
+            <a class="btn btn-outline-primary" href="{% url 'catalog:category_list'%}" role="button">Категории товаров</a>
         </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% if user.is_authenticated %}
